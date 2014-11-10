@@ -1,23 +1,25 @@
 
-FALLOC = /usr/local/bin/falloc
-TRUNC = /usr/local/bin/truncate
+INSTDIR = /usr/local/bin
+
+FALLOC = falloc
+FTRUNC = ftrunc
 
 CFLAGS = -Wall -Wextra
 
-all: $(FALLOC) $(TRUNC)
+all: $(INSTDIR)/$(FALLOC) $(INSTDIR)/$(FTRUNC)
 
 clean:
-	-rm -f *.o falloc truncate
+	-rm -f *.o $(FALLOC) $(FTRUNC)
 
-$(FALLOC): falloc
-	strip falloc
-	cp falloc $(FALLOC)
+$(INSTDIR)/$(FALLOC): $(FALLOC)
+	strip $(FALLOC)
+	cp $(FALLOC) $(INSTDIR)/$(FALLOC)
 
-$(TRUNC): truncate
-	strip truncate
-	cp truncate $(TRUNC)
+$(INSTDIR)/$(FTRUNC): $(FTRUNC)
+	strip $(FTRUNC)
+	cp $(FTRUNC) $(INSTDIR)/$(FTRUNC)
 
-falloc: falloc.o lspec.o
+$(FALLOC): lspec.o $(FALLOC).o
 
-truncate: truncate.o lspec.o
+$(FTRUNC): lspec.o $(FTRUNC).o
 
