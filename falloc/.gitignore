@@ -1,3 +1,4 @@
 *.o
 falloc
-truncate
+ftrunc
+frand
